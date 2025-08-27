@@ -41,8 +41,6 @@ E3terefly is a Node.js RESTful API server built with Express and MongoDB, design
 
 ## Project Structure
 
-```
-## Project Structure
 
 ```
 E3terefly/
