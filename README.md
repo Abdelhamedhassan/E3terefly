@@ -56,7 +56,11 @@ E3terefly/
 │   │   ├── message/              # Messaging logic and controllers
 │   │   └── users/                # User management controllers and services
 │   ├── uploads/                  # Uploaded files (local storage)
-│   └── utils/                    # Helper utilities (email, response, security, etc.)
+│   └── utils/
+│       ├── email/                
+│       ├── Events/              
+│       └── multer/
+│       └── security/              
 │
 ├── package.json
 ├── .env.dev                      # Development environment variables
