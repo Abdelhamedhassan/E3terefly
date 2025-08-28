@@ -1,3 +1,4 @@
+import chalk from "chalk";
 import mongoose from "mongoose";
 
 const checkConnectionDB = async () => {
@@ -7,9 +8,9 @@ const checkConnectionDB = async () => {
       serverSelectionTimeoutMS: 30000,
     });
     console.log(result.models);
-    console.log("Database connection successful");
+    console.log(chalk.bgGreen("Database connection successful"));
   } catch (error) {
-    console.error("Database connection error:", error);
+    console.error(chalk.bgRed("Database connection failed"), error);
   }
 };
 
