@@ -21,10 +21,13 @@ export const sendMessage = asyncHandler(async (req, res, next) => {
   }
 
   const { content } = req.body;
-  let attachments = []
+  let attachments = [];
 
   if (req.files) {
-    attachments = await uploadFiles({ files: req.files, path: `messages/${receiverId}` });
+    attachments = await uploadFiles({
+      files: req.files,
+      path: `messages/${receiverId}`,
+    });
   }
   const [message] = await DBService.create({
     model: MessageModel,
@@ -39,7 +42,6 @@ export const sendMessage = asyncHandler(async (req, res, next) => {
 
   successResponse({ res, status: 201, data: { message } });
 });
-
 
 export const sendMessageSender = asyncHandler(async (req, res, next) => {
   const { receiverId } = req.params;
@@ -58,10 +60,13 @@ export const sendMessageSender = asyncHandler(async (req, res, next) => {
   }
 
   const { content } = req.body;
-  let attachments = []
+  let attachments = [];
 
   if (req.files) {
-    attachments = await uploadFiles({ files: req.files, path: `messages/${receiverId}` });
+    attachments = await uploadFiles({
+      files: req.files,
+      path: `messages/${receiverId}`,
+    });
   }
   const [message] = await DBService.create({
     model: MessageModel,
@@ -76,4 +81,21 @@ export const sendMessageSender = asyncHandler(async (req, res, next) => {
   });
 
   successResponse({ res, status: 201, data: { message } });
+});
+
+export const listMessages = asyncHandler(async (req, res, next) => {
+  const userId = req.user?._id;
+
+  const page = parseInt(req.query?.page) || 1;
+  const limit = parseInt(req.query?.limit) || 2;
+  const skip = (page - 1) * limit;
+
+  const messages = await DBService.find({
+    model: MessageModel,
+    filter: { receiverId: userId },
+    skip: skip,
+    limit: limit,
+  });
+
+  successResponse({ res, status: 200, data: { messages } });
 });

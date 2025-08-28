@@ -24,6 +24,12 @@ router.post(
   messageService.sendMessageSender
 );
 
+router.get(
+  "/listMessages",
+  authenticaton(),
+  messageService.listMessages
+);
+
 //get message : by deafult received By Get profile 
 
 export default router;
